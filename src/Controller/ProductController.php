@@ -14,6 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     /**
+     *
+     * @Route("/product", name="product_list")
+     * @param ProductRepository $repository
+     * @return Response
+     */
+    public function list(ProductRepository $repository)
+    {
+        $products = $repository->findAll();
+
+        return $this->render('product/list.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
      * @Route("/product/create", name="product_create")
      * @param Request $request
      * @param SlugifyInterface $slugify
